@@ -23,6 +23,15 @@
   }
 
   /**
+   * Check if URL ends with webp extension (ignoring query strings and hash fragments)
+   * @param {string} url - URL to check
+   * @returns {boolean}
+   */
+  function isWebpUrl(url) {
+    return /\.webp(\?[^#]*)?(\#.*)?$/i.test(url);
+  }
+
+  /**
    * Replace .webp extension with fallback extension, preserving query strings and hashes
    * @param {string} url - URL to convert
    * @returns {string}
@@ -38,7 +47,7 @@
    */
   async function processImage(img) {
     const src = img.getAttribute('src');
-    if (!src || !src.toLowerCase().endsWith(webpExt)) return;
+    if (!src || !isWebpUrl(src)) return;
 
     const exists = await resourceExists(src);
     if (!exists) {
@@ -55,7 +64,7 @@
           const parts = entry.split(/\s+/);
           const url = parts[0];
           
-          if (!url.toLowerCase().endsWith(webpExt)) return entry;
+          if (!isWebpUrl(url)) return entry;
           
           const exists = await resourceExists(url);
           if (!exists) {
@@ -114,7 +123,7 @@
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === 1) { // Element node
-            if (node.tagName === 'IMG' && node.getAttribute('src')?.endsWith(webpExt)) {
+            if (node.tagName === 'IMG' && node.getAttribute('src') && isWebpUrl(node.getAttribute('src'))) {
               processImage(node);
             }
             if (node.getAttribute('style')?.includes('.webp')) {
