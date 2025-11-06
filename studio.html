@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Stack: Foundation models. Federated training. Edge inference. Physics-informed neural nets for emerging markets.">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <style>
+        .loader {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: #0d0e13 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-direction: column !important;
+            z-index: 99999 !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+
+    <title>Studio - M0NARQ AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Sweet Sans Pro';
+            src: url('assets/fonts/SweetSansPro-Light.woff2') format('woff2');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Sweet Sans Pro';
+            src: url('assets/fonts/SweetSansPro-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Sweet Sans Pro';
+            src: url('assets/fonts/SweetSansPro-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Sweet Sans Pro';
+            src: url('assets/fonts/SweetSansPro-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/combined.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+</head>
+
+<body class="page-studio">
+
+    <div class="page-wrapper">
+        <div class="page-content">
+
+            <div class="loader" data-loader>
+                <div class="loader-circle"></div>
+                <p class="loader-text">Loading</p>
+            </div>
+
+            <header class="header">
+                <a href="index.html" class="header-logo">M0NARQ</a>
+                <nav class="header-nav">
+                    <button class="menu-button" data-menu-toggle aria-label="Open menu">
+                        <span class="menu-text">Menu</span>
+                        <div class="burger">
+                            <span class="burger-line"></span>
+                            <span class="burger-line"></span>
+                            <span class="burger-line"></span>
+                        </div>
+                    </button>
+                </nav>
+            </header>
+
+            <div class="menu-overlay" data-menu-overlay>
+                <nav>
+                    <ul class="menu-nav">
+                        <li class="menu-item"><a href="index.html" class="menu-link">Home</a></li>
+                        <li class="menu-item"><a href="work.html" class="menu-link">Work</a></li>
+                        <li class="menu-item"><a href="studio.html" class="menu-link">Studio</a></li>
+                        <li class="menu-item"><a href="story.html" class="menu-link">Story</a></li>
+                        <li class="menu-item"><a href="contact.html" class="menu-link">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <main>
+
+                <!-- Hero Section -->
+                <section class="page-hero" data-scroll-section data-nav-section data-nav-title="Studio">
+                    <div class="hero-background" data-parallax data-speed="0.5">
+                        <div class="image-wrapper">
+                            <img src="assets/images/studio-hero-sentinel.jpg"
+                                 alt="Render of Sentinel-1 satellite in orbit"
+                                 loading="eager"
+                                 fetchpriority="high"
+                                 width="1920"
+                                 height="900"
+                                 data-bloom>
+                        </div>
+                    </div>
+
+                    <div class="container hero-content">
+                        <h1 class="hero-title" data-animate="title-split">
+                            <span class="title-mask">
+                                <span class="title-line">The Stack: Foundation models.</span>
+                            </span>
+                            <span class="title-mask">
+                                <span class="title-line">Federated training. Edge inference.</span>
+                            </span>
+                        </h1>
+                        <p class="hero-subtitle" data-animate="fade-up">
+                            Physics-informed neural nets fine-tuned for emerging-market constraints. All numbers trace to production.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Tech Pillars -->
+                <section id="pillars" class="section" data-scroll-section data-nav-section data-nav-title="Pillars">
+                    <img src="assets/images/bg-tech-mesh.jpg"
+                         alt="Technology mesh pattern"
+                         style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.03; z-index: 0;"
+                         loading="lazy"
+                         data-parallax
+                         data-speed="0.2" />
+                    <div class="container" style="position: relative; z-index: 1;">
+                        <h2>Four Pillars ⋯ One Decision Loop</h2>
+                        <div class="pillar-grid">
+                            <div class="pillar">
+                                <h3>1 · Data Gravity</h3>
+                                <p>
+                                    We mirror Sentinel, VIIRS, open weather and customs records to a
+                                    local STAC server—no round-trip to US regions.
+                                </p>
+                            </div>
+                            <div class="pillar">
+                                <h3>2 · Physics-Bound Models</h3>
+                                <p>
+                                    Loss functions penalise violation of hydrology, epidemiology or
+                                    market-clearing equations. ML that <em>knows</em> the laws of the
+                                    land generalises with fewer samples.
+                                </p>
+                            </div>
+                            <div class="pillar">
+                                <h3>3 · Edge + Federation</h3>
+                                <p>
+                                    Raspberry Pi, Coral TPU or even feature-phones push encrypted
+                                    gradients; headquarters only sees statistics, never data.
+                                </p>
+                            </div>
+                            <div class="pillar">
+                                <h3>4 · Action Interfaces</h3>
+                                <p>
+                                    Instead of dashboards we send GeoJSON, SMS, MQTT—anything that
+                                    plugs into real workflows.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Capabilities (3-column grid) -->
+                <section class="capabilities-section section" data-scroll-section data-nav-section data-nav-title="Stack">
+                    <div class="container">
+                        <div class="capabilities-grid grid grid-3" data-stagger-children>
+
+                            <div class="capability-card" data-animate="fade-up">
+                                <div class="capability-image-wrapper">
+                                    <img src="assets/images/services-1.jpg"
+                                         alt="Abstract topographic lines"
+                                         loading="lazy"
+                                         fetchpriority="low"
+                                         width="400"
+                                         height="500"
+                                         decoding="async">
+                                </div>
+                                <div class="capability-content">
+                                    <h3 class="capability-title">Foundation Models</h3>
+                                    <p class="capability-description">
+                                        Vision Transformers — SegFormer-B2 • Swin-v2-Base • DINO-v2 (semantic segmentation). Pre-trained on ImageNet-22k, fine-tuned on 6-band multispectral + SAR.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="capability-card" data-animate="fade-up">
+                                <div class="capability-image-wrapper">
+                                    <img src="assets/images/services-2.jpg"
+                                         alt="Network nodes and connections"
+                                         loading="lazy"
+                                         fetchpriority="low"
+                                         width="400"
+                                         height="500"
+                                         decoding="async">
+                                </div>
+                                <div class="capability-content">
+                                    <h3 class="capability-title">Federated Training</h3>
+                                    <p class="capability-description">
+                                        On-device model updates (TensorFlow Lite, ONNX Runtime) encrypted via Paillier homomorphic schemes. Aggregates gradient contributions from 50+ edge nodes without seeing raw data.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="capability-card" data-animate="fade-up">
+                                <div class="capability-image-wrapper">
+                                    <img src="assets/images/services-3.jpg"
+                                         alt="Edge computing devices"
+                                         loading="lazy"
+                                         fetchpriority="low"
+                                         width="400"
+                                         height="500"
+                                         decoding="async">
+                                </div>
+                                <div class="capability-content">
+                                    <h3 class="capability-title">Edge Inference</h3>
+                                    <p class="capability-description">
+                                        &lt;120 ms latency (P95) for 512×512 SAR segmentation on Pi 4B. Quantised INT8 models (post-training, QAT). Fallback to cloud (AWS Lambda GPU) when edge compute saturates.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Engine Deep Dives -->
+                <section id="engine-deep-dives" class="section" data-scroll-section data-nav-section data-nav-title="Engines">
+                    <img src="assets/images/bg-code-matrix.jpg"
+                         alt="Code matrix background"
+                         style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.02; z-index: 0;"
+                         loading="lazy"
+                         data-parallax
+                         data-speed="0.15" />
+                    <div class="container" style="position: relative; z-index: 1;">
+                        <h2>The Engines that Power Everything</h2>
+
+                        <article class="engine">
+                          <h3>Hawkeye ▸ Geospatial AI</h3>
+                          <ul>
+                            <li><strong>2 core models</strong>: SegFormer-B2 floods, SimSiam
+                                crops; adding Swin-v2 deforestation Q4.</li>
+                            <li><strong>Max AOI</strong> processed so far:
+                                48 000 km² (Bangladesh + Assam combined) in 2.4 hours GPU time.</li>
+                            <li><strong>Sentinel latency</strong>: 5–6 days → 30 min; goal: NRT
+                                stream to 3 min via AWS Ground Station.</li>
+                          </ul>
+                        </article>
+
+                        <article class="engine">
+                          <h3>Hyperion ▸ Time-Series AI</h3>
+                          <ul>
+                            <li>Ensemble factory: Ridge, CatBoost, XGBoost, TFT.</li>
+                            <li>Pipeline auto-re-trains nightly using Prefect DAG & DVC tags.</li>
+                            <li>Feature store holds 9.7 million rows, 36 features each.</li>
+                          </ul>
+                        </article>
+
+                    </div>
+                </section>
+
+                <!-- Toolchain Matrix -->
+                <section id="toolchain" class="section" data-scroll-section data-nav-section data-nav-title="Tools">
+                    <div class="container">
+                        <h2>Toolchain Matrix</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>Stage</th><th>Primary Tool</th><th>Why</th></tr></thead>
+                                <tbody>
+                                  <tr><td>Data catalogue</td><td>STAC + PgSTac</td><td>Self-hosted, no GEE quotas</td></tr>
+                                  <tr><td>Experiment tracking</td><td>MLflow</td><td>Full lineage to commit hash</td></tr>
+                                  <tr><td>Model serving</td><td>FastAPI + ONNX RT</td><td>&lt; 50 ms serialization</td></tr>
+                                  <tr><td>Edge compile</td><td>TensorRT &amp; TFLite</td><td>INT8 quant, 4-bit GPTQ</td></tr>
+                                  <tr><td>Federation</td><td>FATE 1.11</td><td>Paillier HE, DP ε = 1.0</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Responsible AI -->
+                <section id="responsible-ai" class="dark section" data-scroll-section data-nav-section data-nav-title="Ethics">
+                    <div class="container">
+                        <h2>Responsible & Secure by Design</h2>
+                        <p>
+                          • Bias audit on every text model using
+                          <code>checklist-cli</code>.<br>
+                          • Model cards auto-generated on merge via GitHub Actions.<br>
+                          • ISO 27001 alignment; servers inside data-sovereign regions.<br>
+                          • Continuous red-team prompts against RAG assistant.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Whitepaper CTA -->
+                <section id="whitepaper-cta" class="cta-section section" data-scroll-section data-nav-section data-nav-title="Download">
+                    <div class="container">
+                        <div class="cta-content" data-animate="fade-up">
+                            <p class="cta-text">
+                                Want the full stack? Download the whitepaper to see architecture diagrams and cost breakdowns.
+                            </p>
+                            <a href="whitepaper.pdf" class="button button-accent">
+                                <span>Download whitepaper</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-column">
+                            <h3>M0NARQ AI</h3>
+                            <p>Real-time intelligence for emerging markets. Physics-informed neural networks that ship, not slide decks.</p>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Navigate</h3>
+                            <ul class="footer-links">
+                                <li><a href="index.html" class="footer-link">Home</a></li>
+                                <li><a href="work.html" class="footer-link">Work</a></li>
+                                <li><a href="studio.html" class="footer-link">Studio</a></li>
+                                <li><a href="story.html" class="footer-link">Story</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Contact</h3>
+                            <ul class="footer-links">
+                                <li><a href="mailto:hello@m0narq.ai" class="footer-link">hello@m0narq.ai</a></li>
+                                <li><a href="contact.html" class="footer-link">Get in touch</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Follow</h3>
+                            <div class="footer-social">
+                                <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
+                                <a href="#" class="social-link" aria-label="Twitter">Twitter</a>
+                                <a href="#" class="social-link" aria-label="GitHub">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 M0NARQ AI. All rights reserved.</p>
+                        <p>Dhaka, Bangladesh</p>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Dynamic Island Navigation -->
+    <nav class="nav-container">
+        <div class="dynamic-island" id="dynamicIsland">
+            <button class="nav-arrow prev" id="prevBtn" aria-label="Previous section">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor"/>
+                </svg>
+            </button>
+
+            <div class="island-text">
+                <span class="text-content">LOADING</span>
+            </div>
+
+            <button class="nav-arrow next" id="nextBtn" aria-label="Next section">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor"/>
+                </svg>
+            </button>
+
+            <div class="progress-indicator">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <button class="menu-button" id="menuButton" aria-label="Open menu">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="menu-panel" id="menuPanel">
+                <a href="index.html" class="menu-item">Home</a>
+                <a href="work.html" class="menu-item">Work</a>
+                <a href="studio.html" class="menu-item active">Studio</a>
+                <a href="story.html" class="menu-item">Story</a>
+                <a href="contact.html" class="menu-item">Contact</a>
+            </div>
+        </button>
+    </nav>
+
+    <script src="js/animations.js" defer></script>
+
+</body>
+</html>
