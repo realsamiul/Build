@@ -608,19 +608,20 @@ class M0NARQAnimations {
     }
 
     this.lenis = new Lenis({
-      duration: 0.6,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.2,
+      easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
-      wheelMultiplier: 0.8,
+      touchMultiplier: 2.5,
+      wheelMultiplier: 1.2,
       syncTouch: true,
-      syncTouchLerp: 0.075,
+      syncTouchLerp: 0.05,
       normalizeWheel: true,
-      locked: false
+      wheelDebounce: 50,
+      locked: false,
+      renderByPixels: true,
     });
 
     let rafId = null;
