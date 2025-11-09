@@ -1,6 +1,6 @@
 /*
 ══════════════════════════════════════════════════════════════════
-M0NARQ AI – COMBINED STYLES v4.0
+M0NARQ AI – COMBINED STYLES v4.0 - CORRECTED
 All styles in one file - Foundation, Layout, Components, Animations, Pages
 ══════════════════════════════════════════════════════════════════
 */
@@ -18,7 +18,9 @@ html {
   font-size: 62.5%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
+  /* Removed scroll-behavior: smooth; - handled by Lenis */
+  /* Prevent scroll anchoring issues */
+  scroll-behavior: auto; 
 }
 
 body {
@@ -29,6 +31,14 @@ body {
   background-color: var(--color-dark-grey);
   overflow-x: hidden;
   min-height: 100vh;
+  /* Ensure page content is visible after loader */
+  opacity: 0;
+  visibility: hidden;
+}
+
+body.loaded {
+  opacity: 1;
+  visibility: visible;
 }
 
 img, picture, video, canvas, svg {
@@ -254,7 +264,8 @@ p {
    ═══════════════════════════════════════════════════════════════ */
 .page-wrapper {
   width: 100%;
-  overflow-x: hidden;
+  /* Remove overflow-x: hidden; if Lenis handles it */
+  /* overflow-x: hidden; */
   position: relative;
 }
 
@@ -265,6 +276,8 @@ p {
 
 main {
   padding-bottom: var(--island-safe-bottom);
+  /* Ensure main content starts below the fixed header */
+  padding-top: calc(3rem + 2 * var(--spacing-unit));
 }
 
 .container {
@@ -298,6 +311,7 @@ main {
 
 @media (max-width: 768px) {
   .container { padding: 0 2rem; }
+  main { padding-top: calc(2rem + 2 * var(--spacing-unit)); }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -311,6 +325,8 @@ main {
   justify-content: center;
   position: relative;  /* ADDED for absolute positioning context */
   overflow: hidden;  /* CRITICAL - prevent parallax overflow */
+  /* Ensure sections have a defined scroll snap point */
+  scroll-snap-align: start;
 }
 
 .hero-section, .full-bleed, .story-chapter {
@@ -321,6 +337,8 @@ main {
   justify-content: center;
   position: relative;
   overflow: hidden;
+  /* Ensure hero has a defined scroll snap point */
+  scroll-snap-align: start;
 }
 
 .section-sm {
@@ -405,6 +423,9 @@ main {
   z-index: var(--z-header);
   mix-blend-mode: normal;
   transition: mix-blend-mode 0.3s ease;
+  /* Ensure header stays on top */
+  background: var(--color-dark-grey); 
+  background: linear-gradient(180deg, var(--color-dark-grey) 0%, transparent 100%);
 }
 
 body.is-at-hero .header {
@@ -555,6 +576,10 @@ body.is-at-hero .header {
   align-items: center;
   gap: 1.2rem;  /* Larger gap for bigger island */
   pointer-events: none;
+  /* Ensure island is visible on top */
+  pointer-events: all;
+  /* Add a small offset to prevent overlap with footer */
+  margin-bottom: 1rem;
 }
 
 .dynamic-island {
@@ -573,7 +598,7 @@ body.is-at-hero .header {
   pointer-events: all;
   cursor: pointer;
   will-change: width;
-  box-shadow: 
+  box-shadow:
     0 0 0 0.5px rgba(255, 255, 255, 0.05),
     0 12px 48px rgba(0, 0, 0, 0.5),  /* Stronger shadow for larger island */
     0 4px 12px rgba(0, 0, 0, 0.4);
@@ -587,7 +612,7 @@ body.is-at-hero .header {
 }
 
 .dynamic-island:hover {
-  box-shadow: 
+  box-shadow:
     0 0 0 0.5px rgba(255, 255, 255, 0.08),
     0 24px 72px rgba(0, 0, 0, 0.6),
     0 8px 16px rgba(0, 0, 0, 0.5);
@@ -643,12 +668,12 @@ body.is-at-hero .header {
 
 @keyframes glitch {
   0%, 100% {
-    text-shadow: 
+    text-shadow:
       0.02em 0 0 rgba(255, 0, 0, 0.75),
       -0.02em 0 0 rgba(0, 255, 255, 0.75);
   }
   50% {
-    text-shadow: 
+    text-shadow:
       0.02em 0.01em 0 rgba(255, 0, 0, 0.75),
       -0.01em -0.02em 0 rgba(0, 255, 255, 0.75);
   }
@@ -676,6 +701,7 @@ body.is-at-hero .header {
 
 .expanded .nav-arrow {
   display: flex;
+  pointer-events: all; /* Make arrows clickable when expanded */
 }
 
 .nav-arrow:hover {
@@ -733,7 +759,7 @@ body.is-at-hero .header {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 
+  box-shadow:
     0 4px 12px rgba(44, 140, 153, 0.4),
     inset 0 1px 1px rgba(255, 255, 255, 0.2);
   pointer-events: all;
@@ -742,7 +768,7 @@ body.is-at-hero .header {
 }
 
 .nav-container .menu-button:hover {
-  box-shadow: 
+  box-shadow:
     0 4px 16px rgba(44, 140, 153, 0.5),
     inset 0 1px 1px rgba(255, 255, 255, 0.2);
   transform: scale(1.05);
@@ -772,15 +798,15 @@ body.is-at-hero .header {
 .nav-container .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
 .nav-container .hamburger span:nth-child(3) { bottom: 0; }
 
-.menu-open .hamburger span:nth-child(1) { 
-  transform: rotate(45deg) translate(4px, 4px); 
+.menu-open .hamburger span:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 4px);
 }
-.menu-open .hamburger span:nth-child(2) { 
-  opacity: 0; 
-  transform: translateY(-50%) scaleX(0); 
+.menu-open .hamburger span:nth-child(2) {
+  opacity: 0;
+  transform: translateY(-50%) scaleX(0);
 }
-.menu-open .hamburger span:nth-child(3) { 
-  transform: rotate(-45deg) translate(4px, -4px); 
+.menu-open .hamburger span:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -4px);
 }
 
 /* Menu panel adjustments for larger island */
@@ -798,10 +824,11 @@ body.is-at-hero .header {
   scale: 0.8;
   pointer-events: none;
   transform-origin: bottom right;
-  box-shadow: 
+  box-shadow:
     0 0 0 0.5px rgba(255, 255, 255, 0.05),
     0 24px 72px rgba(0, 0, 0, 0.5);
   will-change: transform, opacity;
+  z-index: calc(var(--z-island) + 1); /* Ensure panel is above island */
 }
 
 .menu-panel .menu-item {
@@ -819,19 +846,6 @@ body.is-at-hero .header {
   text-align: center;
   transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
   margin: 0.2rem 0;  /* Small margin between items */
-  opacity: 1;
-  transform: none;
-}
-  border-radius: 0.5rem;
-  font-weight: 500;
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  min-width: 6rem;
-  text-align: center;
-  transition: all 0.2s;
-  margin: 0;
   opacity: 1;
   transform: none;
 }
@@ -853,21 +867,21 @@ body.is-at-hero .header {
     --island-width-collapsed: 11rem;
     --island-width-expanded: 14rem;
   }
-  
+
   .nav-container {
     bottom: 2rem;
     gap: 1rem;
   }
-  
-  .text-content { 
-    font-size: 0.85rem; 
+
+  .text-content {
+    font-size: 0.85rem;
   }
-  
+
   .nav-container .menu-button {
     width: 3.4rem;
     height: 3.4rem;
   }
-  
+
   .nav-container .hamburger {
     width: 1.2rem;
     height: 1rem;
@@ -930,6 +944,8 @@ body.is-at-hero .header {
   color: var(--color-white);
   padding: 8rem 0 4rem;
   padding-bottom: calc(4rem + var(--island-safe-bottom));
+  /* Ensure footer doesn't overlap with island */
+  margin-bottom: var(--island-safe-bottom);
 }
 
 .footer-content {
@@ -1117,6 +1133,7 @@ body.is-at-hero .header {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    /* Keep scroll-behavior auto for reduced motion */
     scroll-behavior: auto !important;
   }
   [data-parallax] { transform: none !important; }
@@ -1148,7 +1165,7 @@ body.is-at-hero .header {
   content: '';
   position: absolute;
   inset: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 30%, rgba(44, 140, 153, 0.08) 0%, transparent 50%),
     radial-gradient(circle at 80% 70%, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
   pointer-events: none;
@@ -1183,7 +1200,7 @@ body.is-at-hero .header {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   BACKGROUND IMAGES - FIXED FOR VISIBILITY
+   BACKGROUND IMAGES - CORRECTED FOR VISIBILITY AND OVERLAY
    ═══════════════════════════════════════════════════════════════ */
 
 /* Full bleed sections (hero, story chapters) */
@@ -1196,12 +1213,12 @@ body.is-at-hero .header {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 0;
-  /* CRITICAL CHANGES: */
-  opacity: 0.25;  /* CHANGED from 0.1 - now visible */
-  mix-blend-mode: soft-light;  /* CHANGED from luminosity - better visibility */
-  filter: brightness(0.7) contrast(1.1);  /* Slight adjustment for readability */
-  /* REMOVED scale - no magnification */
+  z-index: 0; /* Behind content */
+  /* Adjusted for better visibility */
+  opacity: 0.4; /* Increased opacity */
+  mix-blend-mode: overlay; /* Changed blend mode */
+  filter: brightness(0.8) contrast(1.1) saturate(1.1); /* Adjusted filter */
+  /* Removed scale - image should not be zoomed in */
 }
 
 /* Section background images (problem-space, demo-snapshot, etc) */
@@ -1214,12 +1231,16 @@ body.is-at-hero .header {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 0;
-  /* CRITICAL CHANGES: */
-  opacity: 0.08;  /* CHANGED from 0.05/0.03 - slightly more visible */
-  mix-blend-mode: overlay;  /* Better subtle effect */
-  filter: brightness(0.5);
-  pointer-events: none;
+  z-index: 0; /* Behind content */
+  /* Adjusted for better visibility */
+  opacity: 0.15; /* Increased opacity */
+  mix-blend-mode: overlay; /* Changed blend mode */
+  filter: brightness(0.6) contrast(1.05); /* Adjusted filter */
+  /* Removed scale - image should not be zoomed in */
+  /* Ensure images are sharp */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated; /* Fallback */
 }
 
 /* Ensure content is above images */
@@ -1230,7 +1251,7 @@ body.is-at-hero .header {
 #vision-track > div,
 #timeline > div {
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Above image */
 }
 
 /* Text readability overlay for full-bleed sections */
@@ -1245,7 +1266,7 @@ body.is-at-hero .header {
     rgba(13, 14, 19, 0.6) 50%,
     rgba(13, 14, 19, 0.8) 100%
   );
-  z-index: 1;
+  z-index: 1; /* Between image and text */
   pointer-events: none;
 }
 
@@ -1548,4 +1569,12 @@ body.is-at-hero .header {
 #timeline {
   position: relative;
   overflow: hidden;
+  /* Ensure scroll-snap works */
+  scroll-snap-align: start;
+}
+
+/* Ensure html/body have full height for Lenis */
+html, body {
+  height: auto;
+  min-height: 100vh;
 }
