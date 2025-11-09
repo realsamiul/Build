@@ -1,6 +1,6 @@
 /**
- * M0NARQ Animation System v6.1 - CORRECTED
- * Fixed: All scroll, animation, and dynamic island issues
+ * M0NARQ Animation System v6.1 - CORRECTED (NO SCROLL SNAP)
+ * Fixed: All scroll, animation, and dynamic island issues. Removed scroll snap.
  * 
  * Features:
  * - Dynamic Island Navigation integrated
@@ -449,7 +449,7 @@ class DynamicIslandNav {
     if (typeof gsap !== 'undefined' && window.M0NARQ && window.M0NARQ.lenis) {
       // Use Lenis for smooth scrolling
       window.M0NARQ.lenis.scrollTo(this.sections[clampedIndex], {
-        duration: 1,
+        duration: 1, // Duration for manual scroll via island buttons
         easing: (t) => 1 - Math.pow(1 - t, 3)
       });
     } else {
@@ -518,7 +518,7 @@ class M0NARQAnimations {
       // Add resize handler
       this.initResizeHandler();
       this.state.isInitialized = true;
-      console.log('✨ M0NARQ v6.1 initialized - all fixes applied');
+      console.log('✨ M0NARQ v6.1 initialized - all fixes applied, no scroll snap');
     } catch (error) {
       console.error('Failed to initialize M0NARQ animations:', error);
       // Fallback: ensure page is visible
@@ -606,9 +606,9 @@ class M0NARQAnimations {
       console.warn('Lenis not loaded, using native scroll');
       return;
     }
-    // Reduced inertia for better ScrollTrigger sync
+    // Reduced inertia for smoother feel, less stickiness
     this.lenis = new Lenis({
-      duration: 1.0,  // CHANGED from 1.8 - reduced inertia for better sync
+      duration: 0.8, // ADJUSTED from 1.0 - reduced inertia for smoother, less sticky feel
       easing: (t) => {
         // Custom luxury easing - ease-in-out with slight overshoot
         return t < 0.5
