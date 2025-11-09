@@ -672,9 +672,21 @@ class M0NARQAnimations {
       nullTargetWarn: false
     });
     
-    // REMOVED: gsap.ticker.lagSmoothing() - causes stutter
-    // Set ScrollTrigger defaults
-    ScrollTrigger.defaults({ markers: false });
+    // CRITICAL: DO NOT USE lagSmoothing - causes stutter with Lenis
+    // REMOVED: gsap.ticker.lagSmoothing(1000, 16);
+    
+    // ScrollTrigger defaults
+    ScrollTrigger.defaults({ 
+      markers: false,
+      // CRITICAL: Use Lenis for scrolling, not ScrollTrigger
+      scroller: window
+    });
+    
+    // CRITICAL: Configure ScrollTrigger for Lenis
+    ScrollTrigger.config({
+      autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+      ignoreMobileResize: true
+    });
     
     gsap.ticker.fps(60);
   }
@@ -685,30 +697,51 @@ class M0NARQAnimations {
       return;
     }
     
-    // Single scroll system - Lenis only
+    // CRITICAL FIX: More luxurious scroll settings
     this.lenis = new Lenis({
-      duration: MotionConfig.durations.slowest,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.8,  // CHANGED from 1.2 - slower, more luxurious
+      easing: (t) => {
+        // Custom luxury easing - ease-in-out with slight overshoot
+        return t < 0.5
+          ? 4 * t * t * t
+          : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      },
       orientation: 'vertical',
+      gestureOrientation: 'vertical',
       smooth: !this.performance.isReducedMotion,
-      smoothTouch: false,
-      wheelMultiplier: 1,
-      touchMultiplier: 2
+      smoothTouch: false,  // Disable on touch for better mobile performance
+      wheelMultiplier: 0.8,  // CHANGED from 1 - softer wheel response
+      touchMultiplier: 1.5,  // Smoother touch scrolling
+      infinite: false,
+      autoResize: true,
+      // CRITICAL: These prevent stalling
+      syncTouch: true,
+      syncTouchLerp: 0.1,
     });
     
-    // Single RAF loop
+    // CRITICAL FIX: Proper RAF loop with error handling
     const raf = (time) => {
-      this.lenis.raf(time);
-      requestAnimationFrame(raf);
+      try {
+        this.lenis.raf(time);
+        requestAnimationFrame(raf);
+      } catch (error) {
+        console.error('Lenis RAF error:', error);
+        // Fallback: try again
+        requestAnimationFrame(raf);
+      }
     };
     requestAnimationFrame(raf);
     
-    // Sync with ScrollTrigger - CRITICAL FIX
-    this.lenis.on('scroll', () => {
-      if (typeof ScrollTrigger !== 'undefined') {
-        ScrollTrigger.update();
-      }
-    });
+    // CRITICAL FIX: Proper ScrollTrigger sync
+    this.lenis.on('scroll', ScrollTrigger.update);
+    
+    // CRITICAL: Stop ScrollTrigger from interfering
+    gsap.ticker.remove(gsap.updateRoot);
+    
+    // CRITICAL: Refresh ScrollTrigger after Lenis is ready
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
     
     // Handle anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -740,7 +773,6 @@ class M0NARQAnimations {
   async preloadCriticalImages() {
     return new Promise(resolve => {
       try {
-        // Find all images with fetchpriority="high" or loading="eager"
         const criticalImages = document.querySelectorAll('img[fetchpriority="high"], img[loading="eager"]');
         
         if (criticalImages.length === 0) {
@@ -751,19 +783,29 @@ class M0NARQAnimations {
         
         const imagePromises = Array.from(criticalImages).map(img => {
           return new Promise((imgResolve) => {
-            if (img.complete) {
+            if (img.complete && img.naturalHeight !== 0) {
               imgResolve();
             } else {
-              const tempImg = new Image();
-              tempImg.onload = () => imgResolve();
-              tempImg.onerror = () => imgResolve(); // Still resolve on error
-              tempImg.src = img.src;
+              // CRITICAL: Use decode() for better performance
+              if (img.decode) {
+                img.decode()
+                  .then(() => imgResolve())
+                  .catch(() => {
+                    // Fallback to onload
+                    img.onload = () => imgResolve();
+                    img.onerror = () => imgResolve();
+                  });
+              } else {
+                img.onload = () => imgResolve();
+                img.onerror = () => imgResolve();
+              }
             }
           });
         });
         
         Promise.all(imagePromises).then(() => {
           this.state.criticalImagesLoaded = true;
+          console.log('✓ Critical images loaded');
           resolve();
         });
       } catch (error) {
@@ -804,19 +846,30 @@ class M0NARQAnimations {
   
   initNavigation() {
     const nav = {
-      button: document.querySelector('.menu-button[data-menu-toggle]'),
+      button: document.querySelector('[data-menu-toggle]'), // Top hamburger
+      islandButton: document.getElementById('menuButton'), // Island hamburger
       overlay: document.querySelector('.menu-overlay'),
-      items: document.querySelectorAll('.menu-item'),
+      items: document.querySelectorAll('.menu-overlay .menu-item'), // Only main menu items
       isOpen: false
     };
     
     if (!nav.button || !nav.overlay) return;
     
-    // Menu toggle
-    nav.button.addEventListener('click', () => {
+    // CRITICAL FIX: Both hamburgers should open FULL MENU
+    const toggleHandler = () => {
       nav.isOpen = !nav.isOpen;
       this.toggleMenu(nav);
-    });
+    };
+    
+    nav.button.addEventListener('click', toggleHandler);
+    
+    // CRITICAL: Island hamburger also opens full menu
+    if (nav.islandButton) {
+      nav.islandButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleHandler();
+      });
+    }
     
     // Close on escape
     document.addEventListener('keydown', (e) => {
