@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="M0NARQ AI - When minutes decide outcomes, physics meets pixels. Real-time AI systems for emerging markets.">
 
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -76,6 +76,19 @@
 </head>
 
 <body class="page-home">
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            if (img.closest('[data-nav-section]')) {
+                img.removeAttribute('loading');
+            }
+            if (img.complete) {
+                img.dispatchEvent(new Event('load'));
+            }
+        });
+    });
+    </script>
 
     <div class="page-wrapper">
         <div class="page-content">
@@ -122,8 +135,8 @@
                      into decisions <strong>336 × faster</strong> and
                      <strong>26 pp</strong> more accurate than manual workflows.
                   </p>
-                  <img src="assets/images/hero-satellite-earth.webp"
-                       alt="Satellite view of Earth from space"
+                  <img src="assets/images/hero-landscape.webp"
+                       alt="M0NARQ AI visualization"
                        fetchpriority="high"
                        loading="eager"
                        decoding="async"
@@ -289,9 +302,9 @@
                 <section id="logos" data-nav-section data-nav-title="Proof">
                   <h2>Used by Teams Inside</h2>
                   <ul class="logo-bar">
-                    <li><img src="assets/img/logos/dghs.svg" alt="Bangladesh DGHS" decoding="async"></li>
-                    <li><img src="assets/img/logos/brac.svg" alt="BRAC" decoding="async"></li>
-                    <li><img src="assets/img/logos/kuehne.svg" alt="Kuehne + Nagel" decoding="async"></li>
+                    <li><img src="assets/img/dghs.svg" alt="Bangladesh DGHS" decoding="async"></li>
+                    <li><img src="assets/img/brac.svg" alt="BRAC" decoding="async"></li>
+                    <li><img src="assets/img/kuehne.svg" alt="Kuehne + Nagel" decoding="async"></li>
                   </ul>
                 </section>
 

@@ -606,39 +606,37 @@ class M0NARQAnimations {
       console.warn('Lenis not loaded, using native scroll');
       return;
     }
-    // Reduced inertia for smoother feel, less stickiness
+
     this.lenis = new Lenis({
-      duration: 0.8, // ADJUSTED from 1.0 - reduced inertia for smoother, less sticky feel
-      easing: (t) => {
-        // Custom luxury easing - ease-in-out with slight overshoot
-        return t < 0.5
-          ? 4 * t * t * t
-          : 1 - Math.pow(-2 * t + 2, 3) / 2;
-      },
+      duration: 0.6,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smooth: !this.performance.isReducedMotion,
-      smoothTouch: false,  // Disable on touch for better mobile performance
-      wheelMultiplier: 0.8,  // Softer wheel response
-      touchMultiplier: 1.5,  // Smoother touch scrolling
+      smoothWheel: true,
+      smoothTouch: false,
+      touchMultiplier: 2,
       infinite: false,
-      autoResize: true,
-      // These prevent stalling
+      wheelMultiplier: 0.8,
       syncTouch: true,
-      syncTouchLerp: 0.1,
+      syncTouchLerp: 0.075,
+      normalizeWheel: true,
+      locked: false
     });
-    // CRITICAL FIX: Proper RAF loop with error handling
+
+    let rafId = null;
     const raf = (time) => {
-      try {
+      if (this.lenis) {
         this.lenis.raf(time);
-        requestAnimationFrame(raf);
-      } catch (error) {
-        console.error('Lenis RAF error:', error);
-        // Fallback: try again
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
       }
     };
     requestAnimationFrame(raf);
+
+    this.cleanupLenis = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      this.lenis?.destroy();
+    };
+
     // CRITICAL FIX: Proper ScrollTrigger integration with scrollerProxy
     if (typeof ScrollTrigger !== 'undefined') {
       const lenis = this.lenis;
