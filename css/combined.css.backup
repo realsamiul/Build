@@ -18,7 +18,7 @@ html {
   font-size: 62.5%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -307,13 +307,8 @@ main {
 }
 
 .hero-section, .full-bleed, .story-chapter {
-  min-height: 100vh;
+  min-height: 140vh;
   padding: var(--spacing-2xl) 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
 }
 
 .section-sm {
@@ -489,7 +484,7 @@ body.is-at-hero .header {
 }
 
 .menu-overlay.is-active {
-  clip-path: circle(150% at 100% 0%);
+  clip-path: circle(141.42% at 100% 0%);
   pointer-events: all;
 }
 
@@ -1093,7 +1088,7 @@ body.is-at-hero .header {
    ═══════════════════════════════════════════════════════════════ */
 .full-bleed {
   position: relative;
-  min-height: 100vh;
+  min-height: 140vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1313,7 +1308,7 @@ body.is-at-hero .header {
 /* Story Page */
 .story-chapter {
   position: relative;
-  min-height: 100vh;
+  min-height: 140vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1396,73 +1391,4 @@ body.is-at-hero .header {
   #vision-track li::before {
     font-size: var(--font-s-h3);
   }
-}
-/* ═══════════════════════════════════════════════════════════════
-   PARALLAX & BLOOM EFFECTS
-   ═══════════════════════════════════════════════════════════════ */
-[data-parallax] {
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-[data-bloom] {
-  transition: filter 0.3s ease-out;
-  will-change: filter;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   PERFORMANCE OPTIMIZATIONS
-   ═══════════════════════════════════════════════════════════════ */
-.project-card,
-.capability-card,
-.mini-case {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-.loaded .project-card,
-.loaded .capability-card,
-.loaded .mini-case {
-  will-change: auto;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADDITIONAL UTILITY CLASSES
-   ═══════════════════════════════════════════════════════════════ */
-.will-change-transform {
-  will-change: transform;
-}
-
-.loaded {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   SECTIONS WITH PARALLAX IMAGES - CRITICAL FIX
-   ═══════════════════════════════════════════════════════════════ */
-#problem-space,
-#demo-snapshot {
-  position: relative;
-  overflow: hidden;
-}
-
-.full-bleed img,
-.story-chapter .chapter-background img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.chapter-background,
-.full-bleed::after {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
 }
