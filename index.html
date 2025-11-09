@@ -88,6 +88,7 @@
             <header class="header">
                 <a href="index.html" class="header-logo">M0NARQ</a>
                 <nav class="header-nav">
+                    <!-- Top hamburger button - this triggers the main menu overlay -->
                     <button class="menu-button" data-menu-toggle aria-label="Open menu">
                         <span class="menu-text">Menu</span>
                         <div class="burger">
@@ -379,13 +380,15 @@
             </div>
         </div>
 
-        <button class="menu-button" id="menuButton" aria-label="Open menu">
+        <!-- Island Menu Button - this button is handled by the DynamicIslandNav class -->
+        <!-- It should NOT have the data-menu-toggle attribute -->
+        <button class="menu-button" id="menuButton" aria-label="Open island menu">
             <div class="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            
+            <!-- This panel is for the island's own small menu, not the main overlay -->
             <div class="menu-panel" id="menuPanel">
                 <a href="index.html" class="menu-item active">Home</a>
                 <a href="work.html" class="menu-item">Work</a>
