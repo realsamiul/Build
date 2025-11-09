@@ -1,6 +1,6 @@
 /*
 ══════════════════════════════════════════════════════════════════
-M0NARQ AI – COMBINED STYLES v4.0 - CORRECTED
+M0NARQ AI – COMBINED STYLES v4.0 - CORRECTED (NO SCROLL SNAP)
 All styles in one file - Foundation, Layout, Components, Animations, Pages
 ══════════════════════════════════════════════════════════════════
 */
@@ -315,7 +315,7 @@ main {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SECTION LAYOUT - FIXED HEIGHTS
+   SECTION LAYOUT - FIXED HEIGHTS (NO SCROLL SNAP)
    ═══════════════════════════════════════════════════════════════ */
 .section {
   padding: var(--spacing-2xl) 0;
@@ -325,8 +325,7 @@ main {
   justify-content: center;
   position: relative;  /* ADDED for absolute positioning context */
   overflow: hidden;  /* CRITICAL - prevent parallax overflow */
-  /* Ensure sections have a defined scroll snap point */
-  scroll-snap-align: start;
+  /* REMOVED: scroll-snap-align: start; */
 }
 
 .hero-section, .full-bleed, .story-chapter {
@@ -337,8 +336,7 @@ main {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  /* Ensure hero has a defined scroll snap point */
-  scroll-snap-align: start;
+  /* REMOVED: scroll-snap-align: start; */
 }
 
 .section-sm {
@@ -1561,7 +1559,7 @@ body.is-at-hero .header {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SECTIONS WITH PARALLAX IMAGES - CRITICAL FIX
+   SECTIONS WITH PARALLAX IMAGES - CRITICAL FIX (NO SCROLL SNAP)
    ═══════════════════════════════════════════════════════════════ */
 #problem-space,
 #demo-snapshot,
@@ -1569,8 +1567,7 @@ body.is-at-hero .header {
 #timeline {
   position: relative;
   overflow: hidden;
-  /* Ensure scroll-snap works */
-  scroll-snap-align: start;
+  /* REMOVED: scroll-snap-align: start; */
 }
 
 /* Ensure html/body have full height for Lenis */
