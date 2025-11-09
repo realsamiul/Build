@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="The Stack: Foundation models. Federated training. Edge inference. Physics-informed neural nets for emerging markets.">
 
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -76,6 +76,19 @@
 </head>
 
 <body class="page-studio">
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            if (img.closest('[data-nav-section]')) {
+                img.removeAttribute('loading');
+            }
+            if (img.complete) {
+                img.dispatchEvent(new Event('load'));
+            }
+        });
+    });
+    </script>
 
     <div class="page-wrapper">
         <div class="page-content">

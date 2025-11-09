@@ -1575,3 +1575,33 @@ html, body {
   height: auto;
   min-height: 100vh;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   CRITICAL OVERRIDES - SCROLL SNAP & PERFORMANCE
+   ═══════════════════════════════════════════════════════════════ */
+/* CRITICAL OVERRIDES */
+html, body {
+    scroll-snap-type: none !important;
+    -ms-scroll-snap-type: none !important;
+    scroll-snap-stop: none !important;
+}
+
+.section, .story-chapter, .full-bleed, .hero-section, [data-scroll-section] {
+    scroll-snap-align: none !important;
+    scroll-snap-stop: none !important;
+}
+
+.page-wrapper {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.nav-container {
+    z-index: 10000;
+}
+
+.menu-overlay, .dynamic-island, .menu-panel {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
