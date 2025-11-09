@@ -206,7 +206,7 @@
                                 <div class="capability-content">
                                     <h3 class="capability-title">Foundation Models</h3>
                                     <p class="capability-description">
-                                        Vision Transformers — SegFormer-B2 • Swin-v2-Base • DINO-v2 (semantic segmentation). Pre-trained on ImageNet-22k, fine-tuned on 6-band multispectral + SAR.
+                                        Vision Transformers — SegFormer-B2 • Swin-v2-Base • DINO-v2 (semantic segmentation). Pre-trained on ImageNet-22k, fine-tuned on 6-band multispectral + SAR[...]
                                     </p>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@
                                 <div class="capability-content">
                                     <h3 class="capability-title">Federated Training</h3>
                                     <p class="capability-description">
-                                        On-device model updates (TensorFlow Lite, ONNX Runtime) encrypted via Paillier homomorphic schemes. Aggregates gradient contributions from 50+ edge nodes without seeing raw data.
+                                        On-device model updates (TensorFlow Lite, ONNX Runtime) encrypted via Paillier homomorphic schemes. Aggregates gradient contributions from 50+ edge nodes withou[...]
                                     </p>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@
                                 <div class="capability-content">
                                     <h3 class="capability-title">Edge Inference</h3>
                                     <p class="capability-description">
-                                        &lt;120 ms latency (P95) for 512×512 SAR segmentation on Pi 4B. Quantised INT8 models (post-training, QAT). Fallback to cloud (AWS Lambda GPU) when edge compute saturates.
+                                        &lt;120 ms latency (P95) for 512×512 SAR segmentation on Pi 4B. Quantised INT8 models (post-training, QAT). Fallback to cloud (AWS Lambda GPU) when edge comput[...]
                                     </p>
                                 </div>
                             </div>
@@ -402,7 +402,8 @@
             </div>
         </div>
 
-        <button class="menu-button" id="menuButton" aria-label="Open menu">
+        <!-- Island Menu Button - handled by the island nav code; do NOT include data-menu-toggle -->
+        <button class="menu-button" id="menuButton" aria-label="Open island menu">
             <div class="hamburger">
                 <span></span>
                 <span></span>
