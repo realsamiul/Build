@@ -697,9 +697,9 @@ class M0NARQAnimations {
       return;
     }
     
-    // CRITICAL FIX: More luxurious scroll settings
+    // Reduced inertia for better ScrollTrigger sync
     this.lenis = new Lenis({
-      duration: 1.8,  // CHANGED from 1.2 - slower, more luxurious
+      duration: 1.0,  // CHANGED from 1.8 - reduced inertia for better sync
       easing: (t) => {
         // Custom luxury easing - ease-in-out with slight overshoot
         return t < 0.5
@@ -710,11 +710,11 @@ class M0NARQAnimations {
       gestureOrientation: 'vertical',
       smooth: !this.performance.isReducedMotion,
       smoothTouch: false,  // Disable on touch for better mobile performance
-      wheelMultiplier: 0.8,  // CHANGED from 1 - softer wheel response
+      wheelMultiplier: 0.8,  // Softer wheel response
       touchMultiplier: 1.5,  // Smoother touch scrolling
       infinite: false,
       autoResize: true,
-      // CRITICAL: These prevent stalling
+      // These prevent stalling
       syncTouch: true,
       syncTouchLerp: 0.1,
     });
@@ -732,23 +732,40 @@ class M0NARQAnimations {
     };
     requestAnimationFrame(raf);
     
-    // CRITICAL FIX: Proper ScrollTrigger sync
-    this.lenis.on('scroll', ScrollTrigger.update);
-    
-    // CRITICAL: Stop ScrollTrigger from interfering
-    gsap.ticker.remove(gsap.updateRoot);
-    
-    // CRITICAL: Refresh ScrollTrigger after Lenis is ready
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
+    // CRITICAL FIX: Proper ScrollTrigger integration with scrollerProxy
+    if (typeof ScrollTrigger !== 'undefined') {
+      const lenis = this.lenis;
+      ScrollTrigger.scrollerProxy(document.scrollingElement || document.documentElement, {
+        scrollTop(value) {
+          if (arguments.length) {
+            lenis.scrollTo(value, { duration: 0.5 });
+          }
+          return document.scrollingElement ? document.scrollingElement.scrollTop : document.documentElement.scrollTop;
+        },
+        getBoundingClientRect() {
+          return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+        },
+        getScrollHeight() {
+          return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        }
+      });
+      
+      // Sync Lenis scroll with ScrollTrigger
+      this.lenis.on('scroll', ScrollTrigger.update);
+      
+      // CRITICAL: Refresh ScrollTrigger after Lenis is ready
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    }
     
     // Handle anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.querySelector(anchor.getAttribute('href'));
+        const href = anchor.getAttribute('href');
+        const target = document.querySelector(href);
         if (target) {
+          e.preventDefault();
           this.scrollTo(target);
         }
       });
@@ -1164,7 +1181,7 @@ class M0NARQAnimations {
   initParallaxEffects() {
     if (typeof ScrollTrigger === 'undefined') return;
     
-    // Optimized parallax with will-change management
+    // Optimized parallax with reduced amplitude and will-change management
     document.querySelectorAll('[data-parallax]').forEach(el => {
       const speed = parseFloat(el.dataset.speed || el.dataset.parallax) || 0.5;
       
@@ -1173,14 +1190,15 @@ class M0NARQAnimations {
         start: 'top bottom',
         end: 'bottom top',
         scrub: 1,
+        invalidateOnRefresh: false,  // Prevent heavy re-calcs during refresh loops
         onEnter: () => el.style.willChange = 'transform',
         onLeave: () => el.style.willChange = 'auto',
         onEnterBack: () => el.style.willChange = 'transform',
         onLeaveBack: () => el.style.willChange = 'auto',
         animation: gsap.fromTo(el,
-          { yPercent: speed * -10 },
+          { yPercent: speed * -3 },  // CHANGED from -10 - reduced amplitude
           { 
-            yPercent: speed * 10,
+            yPercent: speed * 3,  // CHANGED from 10 - reduced amplitude
             ease: 'none',
             force3D: true
           }
@@ -1192,7 +1210,7 @@ class M0NARQAnimations {
   initBloomEffects() {
     if (typeof ScrollTrigger === 'undefined') return;
     
-    // Bloom effect with throttled updates
+    // Bloom effect with throttled updates - removed expensive blur
     document.querySelectorAll('[data-bloom]').forEach(el => {
       ScrollTrigger.create({
         trigger: el,
@@ -1203,8 +1221,10 @@ class M0NARQAnimations {
           this.performance.throttleRAF(() => {
             const progress = self.progress;
             const brightness = 1 + (progress * 0.2);
-            const blur = progress * 2;
-            el.style.filter = `brightness(${brightness}) blur(${blur}px)`;
+            // Removed blur - using brightness only for performance
+            el.style.filter = `brightness(${brightness})`;
+            // Ensure GPU acceleration
+            el.style.transform = 'translateZ(0)';
           });
         }
       });
